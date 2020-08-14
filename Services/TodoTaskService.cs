@@ -65,9 +65,10 @@ namespace MybTodoTask.Services
         }
 
         public IEnumerable<TodoTaskModel> GetTodoTaskWeek()
-        {
-            //return _context.TodoTasks.Where(data => SqlFunctions.DatePart("ISO_WEEK", data.Expired) == SqlFunctions.DatePart("ISO_WEEK", DateTime.Now).ToList();
-            return _context.TodoTasks.Where(data => data.Expired == DateTime.Now.Date).ToList();
+        {            
+            DateTime startOfCurrentWeek = DateTime.Today.AddDays(-1 * (int)(DateTime.Today.DayOfWeek));
+            DateTime endOfCurrentWeek = startOfCurrentWeek.AddDays(7);
+            return _context.TodoTasks.Where(data => data.Expired >= startOfCurrentWeek && data.Expired <= endOfCurrentWeek).ToList();            
         }
 
         public bool SaveChanges()

@@ -122,6 +122,27 @@ namespace MybTodoTask.Controllers
             });
         }
 
+        [HttpGet("week")]
+        public ActionResult<TodoTaskReadDto> GetTodoTaskWeek()
+        {
+            IEnumerable<TodoTaskModel> response = _todoTaskService.GetTodoTaskWeek();
+            if (response != null)
+            {
+                return Ok(new
+                {
+                    success = true,
+                    message = "Data fetched",
+                    data = _mapper.Map<IEnumerable<TodoTaskReadDto>>(response)
+                });
+            }
+
+            return BadRequest(new
+            {
+                success = false,
+                message = "No Data"
+            });
+        }
+
         // POST api/todo        
         [HttpPost]
         public ActionResult<TodoTaskReadDto> CreateTodoTask([FromBody] TodoTaskCreateDto request)
@@ -151,7 +172,7 @@ namespace MybTodoTask.Controllers
             return BadRequest();
         }
 
-        // PUT api/todo/5        
+        // PUT api/todo/1  
         [HttpPut("{id}", Name = "UpdateTodoTask")]
         public ActionResult<TodoTaskReadDto> UpdateTodoTask(int id, TodoTaskCreateDto request)
         {
