@@ -22,11 +22,11 @@ Required Operations:
       for today => GET api/todo/today
       next day  => GET api/todo/next
       current week => GET api/todo/week
-    Create Todo => POST api/todo        => json from body [title, description, expired, percentComplete]
-    Update Todo => PUT api/todo/{id}    => json from body [title, description, expired, percentComplete]
-    Set Todo percent complete => NOT COMPLETED
+    Create Todo => POST api/todo                                => json from body [title, description, expired, percentComplete]
+    Update Todo => PUT api/todo/{id}                            => json from body [title, description, expired, percentComplete]
+    Set Todo percent complete => PUT api/todo/{id}/setpros      => json from body [percentComplete]
     Delete Todo => DELETE api/todo/{id}
-    Mark Todo as Done => NOT COMPLETED
+    Mark Todo as Done => PUT api/todo/{id}/setdone
           
 Requirements:
 
