@@ -20,8 +20,12 @@ namespace MybTodoTask.Services
             CreateMap<TodoTaskCreateDto, TodoTaskModel>();
             // buat read
             CreateMap<TodoTaskModel, TodoTaskReadDto>();
+            // buat update
+            CreateMap<TodoTaskUpdateDto, TodoTaskModel>();
             // buat set percent
             CreateMap<TodoTaskCompleteDto, TodoTaskModel>();
+            // buat set done
+            CreateMap<TodoTaskDoneDto, TodoTaskModel>();
         }
     }
 }

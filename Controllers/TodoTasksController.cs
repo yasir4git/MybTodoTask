@@ -173,8 +173,8 @@ namespace MybTodoTask.Controllers
         }
 
         // PUT api/todo/1  
-        [HttpPut("{id}", Name = "UpdateTodoTask")]
-        public ActionResult<TodoTaskReadDto> UpdateTodoTask(int id, TodoTaskCreateDto request)
+        [HttpPut("{id:int}", Name = "UpdateTodoTask")]
+        public ActionResult<TodoTaskReadDto> UpdateTodoTask(int id, TodoTaskUpdateDto request)
         {
             if (!ModelState.IsValid)
             {
@@ -199,6 +199,78 @@ namespace MybTodoTask.Controllers
             if (_todoTaskService.SaveChanges())
             {
                 return Created(nameof(UpdateTodoTask), new
+                {
+                    success = true,
+                    message = "Data updated"
+                });
+            }
+            return BadRequest();
+        }
+
+        // PUT api/todo/1/setpros
+        [HttpPut("{id:int}/setpros", Name = "UpdateTodoTaskPercent")]
+        public ActionResult<TodoTaskReadDto> UpdateTodoTaskPercent(int id, TodoTaskCompleteDto request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+
+            // ambil data existing by id
+            TodoTaskModel oldData = _todoTaskService.GetTodoTaskById(id);
+            if (oldData == null)
+            {
+                return NotFound(new
+                {
+                    success = false,
+                    message = "No Data"
+                });
+            }
+
+            // mapping tanpa deklarasi tipe, guna mapping perubahan
+            _mapper.Map(request, oldData);
+            _todoTaskService.UpdateTodoTask(oldData); // do nothing
+
+            if (_todoTaskService.SaveChanges())
+            {
+                return Created(nameof(UpdateTodoTaskPercent), new
+                {
+                    success = true,
+                    message = "Data updated"
+                });
+            }
+            return BadRequest();
+        }
+
+        // PUT api/todo/1/setdone
+        [HttpPut("{id:int}/setdone", Name = "UpdateTodoTaskDone")]
+        public ActionResult<TodoTaskReadDto> UpdateTodoTaskDone(int id, TodoTaskDoneDto request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+
+            // ambil data existing by id
+            TodoTaskModel oldData = _todoTaskService.GetTodoTaskById(id);
+            if (oldData == null)
+            {
+                return NotFound(new
+                {
+                    success = false,
+                    message = "No Data"
+                });
+            }
+
+            // mapping tanpa deklarasi tipe, guna mapping perubahan
+            _mapper.Map(request, oldData);
+            _todoTaskService.UpdateTodoTask(oldData); // do nothing
+
+            if (_todoTaskService.SaveChanges())
+            {
+                return Created(nameof(UpdateTodoTaskDone), new
                 {
                     success = true,
                     message = "Data updated"
