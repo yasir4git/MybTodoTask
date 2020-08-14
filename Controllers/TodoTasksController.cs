@@ -241,11 +241,11 @@ namespace MybTodoTask.Controllers
                 });
             }
             return BadRequest();
-        }
+        }        
 
         // PUT api/todo/1/setdone
         [HttpPut("{id:int}/setdone", Name = "UpdateTodoTaskDone")]
-        public ActionResult<TodoTaskReadDto> UpdateTodoTaskDone(int id, TodoTaskDoneDto request)
+        public ActionResult<TodoTaskReadDto> UpdateTodoTaskDone(int id)
         {
             if (!ModelState.IsValid)
             {
@@ -264,9 +264,7 @@ namespace MybTodoTask.Controllers
                 });
             }
 
-            // mapping tanpa deklarasi tipe, guna mapping perubahan
-            _mapper.Map(request, oldData);
-            _todoTaskService.UpdateTodoTask(oldData); // do nothing
+            oldData.PercentComplete = 100;
 
             if (_todoTaskService.SaveChanges())
             {

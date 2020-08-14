@@ -38,7 +38,7 @@ Requirements:
           }
       => run migration step. => dotnet ef database update
           
-    nunit for unit tests  => NOT COMPLETED
+    nunit for unit tests  => Completed in project MybTodoTaskNUnitTest
     commented code        => NOT COMPLETED
     code must be ready to compile and run
       => set connection string
