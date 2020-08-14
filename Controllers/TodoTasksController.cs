@@ -53,7 +53,7 @@ namespace MybTodoTask.Controllers
         }
 
         // GET api/todo/5        
-        [HttpGet("{id}", Name = "GetTodoTaskById")]
+        [HttpGet("{id:int}", Name = "GetTodoTaskById")]
         public ActionResult<TodoTaskReadDto> GetTodoTaskById(int id)
         {
             if (id < 1)
@@ -79,7 +79,48 @@ namespace MybTodoTask.Controllers
             });
         }
 
+        // GET api/todo/today       
+        [HttpGet("today")]
+        public ActionResult<TodoTaskReadDto> GetTodoTaskToday()
+        {
+            IEnumerable<TodoTaskModel> response = _todoTaskService.GetTodoTaskToday();
+            if (response != null)
+            {
+                return Ok(new
+                {
+                    success = true,
+                    message = "Data fetched",
+                    data = _mapper.Map<IEnumerable<TodoTaskReadDto>>(response)
+                });
+            }
 
+            return BadRequest(new
+            {
+                success = false,
+                message = "No Data"
+            });
+        }
+
+        [HttpGet("next")]
+        public ActionResult<TodoTaskReadDto> GetTodoTaskTomorrow()
+        {
+            IEnumerable<TodoTaskModel> response = _todoTaskService.GetTodoTaskTomorrow();
+            if (response != null)
+            {
+                return Ok(new
+                {
+                    success = true,
+                    message = "Data fetched",
+                    data = _mapper.Map<IEnumerable<TodoTaskReadDto>>(response)
+                });
+            }
+
+            return BadRequest(new
+            {
+                success = false,
+                message = "No Data"
+            });
+        }
 
         // POST api/todo        
         [HttpPost]
