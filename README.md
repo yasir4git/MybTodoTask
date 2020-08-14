@@ -21,7 +21,7 @@ Required Operations:
     Get Incoming ToDo
       for today => GET api/todo/today
       next day  => GET api/todo/next
-      current week => NOT COMPLETED
+      current week => GET api/todo/week
     Create Todo => POST api/todo        => json from body [title, description, expired, percentComplete]
     Update Todo => PUT api/todo/{id}    => json from body [title, description, expired, percentComplete]
     Set Todo percent complete => NOT COMPLETED
